@@ -11,7 +11,7 @@
     >
       <div class="absolute-top-left transparent" style="padding: 0;">
         <q-chip dense square color="brown" text-color="white" class="q-ma-sm">
-          {{`RJ${rjcode}`}}
+          {{rjcode}}
         </q-chip>
       </div>
 
@@ -28,7 +28,7 @@ export default {
 
   props: {
     workid: {
-      type: Number,
+      type: String,
       required: true
     },
     
@@ -56,16 +56,12 @@ export default {
     coverUrl () {
       // 从 LocalStorage 中读取 token
       // console.log(this.historys)
-      const token = this.$q.localStorage.getItem('jwt-token') || ''
-      return this.workid ? `/api/cover/${this.workid}?token=${token}` : ""
+      // const token = this.$q.localStorage.getItem('jwt-token') || ''
+      return this.workid ? `/api/cover/${this.workid}` : ""
     },
 
     rjcode () {
-      if (this.workid>=1000000) {
-            return (`00000000${this.workid}`).slice(-8);
-          } else {
-            return (`000000${this.workid}`).slice(-6);
-          }
+      return this.workid;
     },
 
     imgClass () {

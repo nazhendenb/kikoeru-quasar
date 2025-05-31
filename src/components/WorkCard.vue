@@ -16,8 +16,8 @@
 
       <!-- 社团 -->
       <div :class="{ 'small-font': $q.screen.width <= 600, 'q-ml-sm q-mt-sm q-mb-xs text-subtitle1 text-weight-regular ellipsis': $q.screen.width >= 600}">
-        <router-link :to="`/works?circleId=${metadata.circle.id}`" class="text-grey">
-          {{ metadata.circle.name }}
+        <router-link :to="`/works?circleId=${metadata.circleId}`" class="text-grey">
+          {{ metadata.circleName }}
         </router-link>
       </div>
 
@@ -171,7 +171,8 @@ export default {
     },
 
     historys: function() {
-      return this.metadata.history ? [this.metadata.history[0]] : null
+      // console.log(this.metadata.history);
+      return this.metadata.history && this.metadata.history.length > 0 ? [this.metadata.history[0]] : null
     }
   },
 
@@ -187,7 +188,7 @@ export default {
     }
 
     // 极个别作品没有标签
-    if (this.metadata.tags && this.metadata.tags[0].name === null) {
+    if (this.metadata.tags.length === 0){
       this.showTags = false;
     }
   },

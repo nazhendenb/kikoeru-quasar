@@ -1,22 +1,24 @@
 <template>
-  <q-item clickable :to="`/work/${metadata.id}${isHistoryItem ? '?continue=true' : ''}`" class="bg-dark text-white" :class="{'rounded-borders': isHistoryItem, 'small-font': $q.screen.width <= 600}" style="padding: 5px;">
+  <q-item clickable :to="`/work/${metadata.workId}${isHistoryItem ? '?continue=true' : ''}`" class="bg-dark text-white" :class="{'rounded-borders': isHistoryItem, 'small-font': $q.screen.width <= 600}" style="padding: 5px;">
     <q-item-section avatar style="padding: 0px 5px 0px 0px;">
-      <router-link :to="`/work/${metadata.id}${isHistoryItem ? '?continue=true' : ''}`">
+      <router-link :to="`/work/${metadata.workId}${isHistoryItem ? '?continue=true' : ''}`">
         <q-img transition="fade" :src="samCoverUrl" :style="isHistoryItem ? { height: '40px', width: '40px' } : { height: '60px', width: '60px' }" />
       </router-link>
     </q-item-section>
 
     <q-item-section>
       <q-item-label lines="2" class="text">
-        <router-link :to="`/work/${metadata.id}${isHistoryItem ? '?continue=true' : ''}`" class="text-white truncate-text">
+        <router-link :to="`/a/${metadata.workId}${isHistoryItem ? '?continue=true' : ''}`" class="text-white truncate-text">
           {{ metadata.title }}
+          
+          <!-- 标题文字 -->
         </router-link>
       </q-item-label>
 
       <q-item-label class="text" lines="2" v-if="isHistoryItem">
-        <span  class="text-blue truncate-text">{{ truncateText(metadata.track_name, 15) }}</span>
+        <span  class="text-blue truncate-text">{{ truncateText(metadata.trackName, 15) }}</span>
         <span>位置:</span>
-        <span>{{ formattedTime(metadata.play_time) }}</span>
+        <span>{{ formattedTime(metadata.playTime) }}</span>
       </q-item-label>
 
       <q-item-label  v-if="!isHistoryItem">
@@ -81,9 +83,8 @@ export default {
 
   computed: {
     samCoverUrl () {
-      // 从 LocalStorage 中读取 token
-      const token = this.$q.localStorage.getItem('jwt-token') || ''
-      return this.metadata.id ? `/api/cover/${this.metadata.id}?type=sam&token=${token}` : ""
+      console.log(this.metadata)
+      return this.metadata.workId ? `/api/cover/${this.metadata.workId}?type=sam` : ""
     },
   },
 
