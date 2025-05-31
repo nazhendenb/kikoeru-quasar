@@ -8,7 +8,7 @@
 
     <q-item-section>
       <q-item-label lines="2" class="text">
-        <router-link :to="`/a/${metadata.workId}${isHistoryItem ? '?continue=true' : ''}`" class="text-white truncate-text">
+        <router-link :to="`/work/${metadata.workId}${isHistoryItem ? '?continue=true' : ''}`" class="text-white truncate-text">
           {{ metadata.title }}
           
           <!-- 标题文字 -->
